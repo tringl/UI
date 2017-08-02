@@ -15,17 +15,20 @@ public class TringlUtil {
      * @return
      */
     public static long folderSize(File folder){
+
         long size=0;
-        if(folder.isFile()){
-            return folder.length();
-        }
-        for(File f:folder.listFiles()){
-            if(f.isFile()){
-                size+=f.length();
-            } else {
-                size+=TringlUtil.folderSize(f);
+        try{
+            if(folder.isFile()){
+                return folder.length();
             }
-        }
+            for(File f:folder.listFiles()){
+                if(f.isFile()){
+                    size+=f.length();
+                } else {
+                    size+=TringlUtil.folderSize(f);
+                }
+            }
+        } catch (Exception e){};
         return size;
     }
 

@@ -1,6 +1,7 @@
 package com.churkin.tringle;
 
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -19,12 +20,15 @@ public class FileLongClickListener implements View.OnLongClickListener
     {
         TextView tv=(TextView)v.findViewById(R.id.tvFileName);
         FileData fd=fa.getFileByName((String)tv.getText());
+        MainActivity mainactivity =(MainActivity) this.fa.ctx;
+        RelativeLayout rl=(RelativeLayout) mainactivity.findViewById(R.id.rlFilesCommit);
+
         if(fd==null){
             return true;
         }
         if(fd.name==".."){
-            MainActivity ma=(MainActivity) this.fa.ctx;
-            ma.onListItemClick(fd);
+            rl.setVisibility(View.INVISIBLE);
+            mainactivity.onListItemClick(fd);
         }
         if(fd.selected){
             fd.selected=false;
@@ -32,6 +36,12 @@ public class FileLongClickListener implements View.OnLongClickListener
         } else {
             fd.selected=true;
             v.setBackgroundResource(R.color.fileSelectedColor);
+        }
+        if(fa.getSelectedFiles().size()>0){
+            rl.setVisibility(View.VISIBLE);
+            mainactivity.calculateSelectedFilesSize();
+        } else {
+            rl.setVisibility(View.INVISIBLE);
         }
         return true;
     }

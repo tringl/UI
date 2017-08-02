@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -19,3 +23,31 @@
             android:drawSelectorOnTop="false"/>
     </TableRow>
 </TableLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rlFilesCommit"
+    android:layout_alignParentBottom="true"
+    android:visibility="invisible"
+    android:background="@color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="50 kb selected"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip"
+        android:paddingLeft="5dip"
+        android:id="@+id/tvFilesSize"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Submit"
+        android:textColor="@color/fileSelectedColor"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip"
+        android:paddingRight="5dip"
+        android:id="@+id/tvFilesCommit"/>
+</RelativeLayout>
+</RelativeLayout>

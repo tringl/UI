@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<FileData> files = new ArrayList<FileData>();
     private File currentDirectory = new File("/");
-    private FileAdapter adapter;
+    public FileAdapter adapter;
     private ArrayList<String> highLvlDirs = new ArrayList<String>();
 
 
@@ -43,13 +43,8 @@ public class MainActivity extends AppCompatActivity {
         //set main layout
         setContentView(R.layout.activity_main);
         //browse to root directory
-        String device="dima_p";
-        if(Environment.isExternalStorageEmulated()){
-            String userStoragePath=Environment.getExternalStorageDirectory().getPath();
-            highLvlDirs.add(userStoragePath);
-            browseTo(new File(userStoragePath));
-        } else {
-            if(device==""){
+        String device="local";
+        if(device==""){
                 highLvlDirs.add("/");
                 browseTo(new File("/"));
             } else if(device=="dima_p"){
@@ -59,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 highLvlDirs.add("/sdcard");
                 browseTo(new File("/sdcard"));
             }
-        }
+        TextView textViewCommit=(TextView)findViewById(R.id.tvFilesCommit);
+        textViewCommit.setOnClickListener(new FilesCommitClickListener(this));
     }
 
     //browse to parent directory
@@ -104,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             FileData fd = new FileData(file.getName(), file.getAbsolutePath());
             if (file.isDirectory()) {
                 fd.isDirectory = true;
+                //бажит
                 fd.size=TringlUtil.folderSize(file);
             } else {
                 Date date=(new Date(file.lastModified()));
@@ -118,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //create array adapter to show everything
-        FileAdapter directoryList = new FileAdapter(this, this.files);
+        this.adapter = new FileAdapter(this, this.files);
         ListView lv = (ListView) findViewById(R.id.lvSelectFiles);
-        lv.setAdapter(directoryList);
+        lv.setAdapter(this.adapter);
     }
     //when you clicked onto item
 
@@ -145,5 +142,12 @@ public class MainActivity extends AppCompatActivity {
         this.upOneLevel();
     }
 
-
+    public void calculateSelectedFilesSize(){
+        long size=0;
+        for(FileData fd:this.adapter.getSelectedFiles()){
+            size+=fd.size;
+        }
+        TextView tv=(TextView) findViewById(R.id.tvFilesSize);
+        tv.setText(TringlUtil.convertByteSizeIntoReadible(size)+" selected");
+    }
 }

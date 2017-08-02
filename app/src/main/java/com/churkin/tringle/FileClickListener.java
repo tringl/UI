@@ -3,6 +3,7 @@ package com.churkin.tringle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -25,6 +26,8 @@ public class FileClickListener implements View.OnClickListener
             return;
         }
         MainActivity mainactivity =(MainActivity) this.fa.ctx;
+        RelativeLayout rl=(RelativeLayout) mainactivity.findViewById(R.id.rlFilesCommit);
+        rl.setVisibility(View.INVISIBLE);
         mainactivity.onListItemClick(fd);
     }
 
