@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Tringle</string>
+    <!-- values:local,dima_p-->
+    <string name="device">local</string>
+</resources>
